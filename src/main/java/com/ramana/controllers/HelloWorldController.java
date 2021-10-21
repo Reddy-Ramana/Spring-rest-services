@@ -1,6 +1,7 @@
 package com.ramana.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,13 @@ public class HelloWorldController {
 	public HelloWorld helloWorldBean() {
 
 		return new HelloWorld("Hello World From Bean!!!!!!");
+	}
+
+	
+	@GetMapping(path="/hello-world-bean/path-variable/{name}")
+	public HelloWorld helloWorldBeanWithPathVariable(@PathVariable String name) {
+
+		return new HelloWorld(String.format("Hello World From Bean with path variable %S",name));
 	}
 
 }
