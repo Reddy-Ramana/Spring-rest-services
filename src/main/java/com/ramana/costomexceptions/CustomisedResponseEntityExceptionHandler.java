@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController
 public class CustomisedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
+	/* This Method handles exception thown from the class Exception */
 	@ExceptionHandler(Exception.class)
 	public final ResponseEntity<Object> handleAllException(Exception ex, WebRequest request) {
 
@@ -21,6 +22,8 @@ public class CustomisedResponseEntityExceptionHandler extends ResponseEntityExce
 				HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
+
+	/* This Method handles exception thown from the class UsernotFoundException */
 
 	@ExceptionHandler(UserNotFoundException.class)
 	public final ResponseEntity<Object> handleUserNotFoundException(Exception ex, WebRequest request) {
