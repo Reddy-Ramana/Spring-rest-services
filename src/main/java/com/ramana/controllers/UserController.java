@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ramana.costomexceptions.UserNotFoundException;
+import com.ramana.pojo.Posts;
 import com.ramana.pojo.User;
 import com.ramana.services.UserService;
 
@@ -25,17 +26,16 @@ public class UserController {
 	@GetMapping(path = "/get-all-users")
 	public List<User> getAllUsers() {
 
-		return userService.getAllUsers();
+		List<User> allUsers = userService.getAllUsers();
+		if (allUsers.isEmpty())
+			throw new UserNotFoundException("No Users Found");
+		return allUsers;
 	}
 
 	@GetMapping(path = "/user/{id}")
 	public User getUser(@PathVariable int id) {
-		User user = userService.getUserById(id);
 
-		if (user == null)
-			throw new UserNotFoundException("id-" + id);
-
-		return user;
+		return userService.getUserById(id);
 	}
 
 	@PostMapping(path = "/user")
@@ -44,6 +44,22 @@ public class UserController {
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(addedUser.getId())
 				.toUri();
 		return ResponseEntity.created(location).body(addedUser);
+	}
+
+	@GetMapping(path = "/user/{id}/posts")
+	public List<Posts> getPostsById(@PathVariable int id) {
+		return userService.getPostsforUser(id);
+	}
+
+	@PostMapping(path = "/user/post")
+	public ResponseEntity updatePostforUser(@RequestBody User user) {
+		return userService.updatePostforUser(user);
+	}
+
+	@GetMapping(path = "/user/{id}/posts/{postId}")
+	public Posts getUserPostByID(@PathVariable int id, @PathVariable int postId) {
+
+		return userService.getPostforUserById(id, postId);
 	}
 
 }

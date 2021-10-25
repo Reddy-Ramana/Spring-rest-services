@@ -32,4 +32,5 @@ public class CustomisedResponseEntityExceptionHandler extends ResponseEntityExce
 				HttpStatus.NOT_FOUND);
 
 	}
+
 }

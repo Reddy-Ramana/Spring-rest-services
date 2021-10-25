@@ -1,22 +1,25 @@
 package com.ramana.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
 	private int id;
 	private String name;
 	private Date dateOfBirth;
+	private List<Posts> posts;
 
 	protected User() {
 
 	};
 
-	public User(int id, String name, Date dateOfBirth) {
+	public User(int id, String name, Date dateOfBirth, List<Posts> posts) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.dateOfBirth = dateOfBirth;
+		this.posts = posts;
 	}
 
 	public int getId() {
@@ -41,6 +44,14 @@ public class User {
 
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+
+	public List<Posts> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Posts> posts) {
+		this.posts = posts;
 	}
 
 	@Override
