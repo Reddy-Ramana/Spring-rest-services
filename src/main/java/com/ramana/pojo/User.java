@@ -3,10 +3,15 @@ package com.ramana.pojo;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
 public class User {
 
 	private int id;
+	@Size(min = 2, message = "user name cannot be less than 2 characters")
 	private String name;
+	@Past(message = "Birth Date cannot be in future")
 	private Date dateOfBirth;
 	private List<Posts> posts;
 
