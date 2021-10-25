@@ -1,7 +1,99 @@
-POST http://localhost:8080/add-user HTTP/1.1
+###################################################
+## Create User
+###################################################
+POST http://localhost:8080/user HTTP/1.1
 Content-Type: application/json
 
 {
     "name":"Mike",
     "dateOfBirth": "2021-10-22T02:42:37.501+00:00"
+}
+
+###################################################
+## Get User by ID
+###################################################
+GET http://localhost:8080/user/2 HTTP/1.1
+Content-Type: application/json
+
+
+###################################################
+## Get all Users
+###################################################
+GET http://localhost:8080/get-all-users HTTP/1.1
+Content-Type: application/json
+
+###################################################
+## Get posts for user
+###################################################
+GET http://localhost:8080/user/2/posts HTTP/1.1
+Content-Type: application/json
+
+###################################################
+## Get posts for user by post Id
+###################################################
+GET http://localhost:8080/user/2/posts/2 HTTP/1.1
+Content-Type: application/json
+
+
+###################################################
+## Create posts for User
+###################################################
+POST http://localhost:8080/user/post HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": 4,
+  "name": "Mike",
+  "dateOfBirth": "2021-10-22T12:18:29.131+00:00",
+  "posts": [
+    {
+      "createdDate": "2021-10-22T12:18:29.131+00:00",
+      "name": "Mike's Third Post"
+    },
+    {
+      "createdDate": "2021-10-22T12:18:29.131+00:00",
+      "name": "Mike's Fourth Post"
+    }
+  ]
+}
+
+###################################################
+## Update posts for User
+###################################################
+POST http://localhost:8080/user/post HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": 4,
+  "posts": [
+    {
+      "createdDate": "2021-10-22T12:18:29.131+00:00",
+      "name": "Mike's Fifth Post"
+    },
+    {
+      "createdDate": "2021-10-22T12:18:29.131+00:00",
+      "name": "Mike's Sixth Post"
+    }
+  ]
+}
+
+###################################################
+## Create posts for User without ID
+###################################################
+POST http://localhost:8080/user/post HTTP/1.1
+Content-Type: application/json
+
+{
+   "name": "jerry",
+  "dateOfBirth": "2021-10-22T12:18:29.131+00:00",
+  "posts": [
+    {
+      "createdDate": "2021-10-22T12:18:29.131+00:00",
+      "name": "jerry's First Post"
+    },
+    {
+      "createdDate": "2021-10-22T12:18:29.131+00:00",
+      "name": "jerry's Second Post"
+    }
+  ]
 }
