@@ -3,6 +3,7 @@ package com.ramana.DAO;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -98,5 +99,19 @@ public class UserDao {
 		}
 		return user;
 
+	}
+
+	public User deleteUserbyId(int id2) {
+
+		Iterator<User> iterator = users.iterator();
+		while (iterator.hasNext()) {
+
+			User user = iterator.next();
+			if (user.getId() == id2) {
+				iterator.remove();
+				return user;
+			}
+		}
+		return null;
 	}
 }

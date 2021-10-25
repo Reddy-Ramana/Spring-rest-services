@@ -72,4 +72,15 @@ public class UserService {
 
 		throw new UserNotFoundException("not found any post for post -id " + postId);
 	}
+
+	public ResponseEntity deleteUserById(int id) {
+
+		User user = userDao.deleteUserbyId(id);
+
+		if (null != user) {
+			System.out.println(user);
+			return ResponseEntity.noContent().build();
+		}
+		throw new UserNotFoundException("user with id - " + id + " Not found");
+	}
 }
