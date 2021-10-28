@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,4 +72,24 @@ public class UserController {
 
 		return userService.deleteUserById(id);
 	}
+
+	@PostMapping(path = "/user/hateoas")
+	private EntityModel<User> addhateoasUser(@Valid @RequestBody User user) {
+		User addedUser = userService.addUser(user);
+		/*
+		 * URI location =
+		 * ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand
+		 * (addedUser.getId()) .toUri();
+		 */
+		EntityModel<User> entityModel = EntityModel.of(addedUser);
+		WebMvcLinkBuilder linkToUser = WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAllUsers());
+		entityModel.add(linkToUser.withRel("get-allusers"));
+		WebMvcLinkBuilder linkToUserid = WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getUser(user.getId()));
+		entityModel.add(linkToUserid.withRel("get-user"));
+
+		return entityModel;
+	}
+
 }
